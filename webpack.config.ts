@@ -3,6 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
+type TMode = 'none' | 'development' | 'production';
+
 const devServer: DevServerConfiguration = {
   open: true,
   compress: true,
@@ -17,12 +19,12 @@ const devServer: DevServerConfiguration = {
   },
 };
 
-export default (
-  env: { mode: 'development' | 'production' },
-  _argv: unknown,
-): webpack.Configuration => {
+export default (env: { mode?: TMode }, _argv: unknown): webpack.Configuration => {
+  const { mode = 'development' } = env;
+  const isDevMode: Boolean = mode === 'development';
+
   return {
-    mode: env.mode || 'production',
+    mode,
     entry: './src/index.tsx',
     output: {
       filename: 'bundle.[contenthash].js',
@@ -31,7 +33,7 @@ export default (
     },
     plugins: [
       new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
-      new webpack.ProgressPlugin(),
+      isDevMode && new webpack.ProgressPlugin(),
     ],
     module: {
       rules: [
@@ -49,9 +51,10 @@ export default (
         },
       ],
     },
-    devServer,
+    devServer: isDevMode && devServer,
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
+    devtool: isDevMode ? 'eval-source-map' : undefined,
   };
 };

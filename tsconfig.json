@@ -11,11 +11,7 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "resolveJsonModule": true,
-    "paths": {
-      "*": [
-        "./src/*"
-      ],
-    }
+    "sourceMap": true,
   },
   "ts-node": {
     "compilerOptions": {

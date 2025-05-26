@@ -6,8 +6,8 @@
   "author": "",
   "scripts": {
     "start": "webpack serve",
-    "build:dev": "npx webpack --env mode=development",
-    "build:prod": "npx webpack --env mode=production"
+    "build:dev": "webpack --env mode=development",
+    "build:prod": "webpack --env mode=production"
   },
   "devDependencies": {
     "@babel/cli": "^7.27.2",
