@@ -25,7 +25,7 @@ export default (env: { mode?: TMode }, _argv: unknown): webpack.Configuration =>
 
   return {
     mode,
-    entry: './src/index.tsx',
+    entry: './src/app/index.tsx',
     output: {
       filename: 'bundle.[contenthash].js',
       path: path.resolve(__dirname, 'build'),
