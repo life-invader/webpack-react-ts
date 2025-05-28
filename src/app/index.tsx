@@ -1,5 +1,6 @@
 import { logAnything } from '../shared/lib/utils.js';
 import { createRoot } from 'react-dom/client';
+import './style/index.scss';
 
 logAnything();
 
