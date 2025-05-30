@@ -1,11 +1,11 @@
 import { logAnything } from '../shared/lib/utils.js';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import { Root } from '../entities/root/index';
-import MainPage from '../pages/main/main.page';
-import { AboutPageLazy as AboutPage } from '../pages/about/about.lazy';
-import './style/index.scss';
 import { Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import { Root } from '@entities/root/index';
+import MainPage from '@pages/main/main.page';
+import { AboutPageLazy as AboutPage } from '@pages/about/about.lazy';
+import './style/index.scss';
 
 logAnything();
 

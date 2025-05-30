@@ -1,7 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
+import BundleAnalyzer from 'webpack-bundle-analyzer';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
@@ -45,7 +45,7 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
         new MiniCssExtractPlugin({
           filename: 'css/style.[contenthash].css',
         }),
-      new BundleAnalyzerPlugin.BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
+      new BundleAnalyzer.BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
     ],
     module: {
       rules: [
@@ -74,6 +74,12 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
     devServer: isDevMode && devServer,
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
+      alias: {
+        '@entities': path.resolve(__dirname, 'src', 'entities'),
+        '@pages': path.resolve(__dirname, 'src', 'pages'),
+        '@shared': path.resolve(__dirname, 'src', 'shared'),
+        '@widgets': path.resolve(__dirname, 'src', 'widgets'),
+      },
     },
     devtool: isDevMode ? 'eval-source-map' : undefined,
   };

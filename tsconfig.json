@@ -12,6 +12,20 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "sourceMap": true,
+    "paths": {
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@widgets/*": [
+        "src/widgets/*"
+      ],
+    },
   },
   "ts-node": {
     "compilerOptions": {
