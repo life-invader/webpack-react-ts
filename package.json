@@ -7,13 +7,14 @@
   "scripts": {
     "start": "webpack serve",
     "build:dev": "webpack --env mode=development",
-    "build:prod": "webpack --env mode=production"
+    "build:prod": "webpack --env mode=production bundleAnalyzer"
   },
   "devDependencies": {
     "@babel/cli": "^7.27.2",
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^22.15.21",
     "@types/webpack": "^5.28.5",
     "@types/webpack-bundle-analyzer": "^4.7.0",

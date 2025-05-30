@@ -8,6 +8,7 @@ import type { Configuration as DevServerConfiguration } from 'webpack-dev-server
 type TMode = 'none' | 'development' | 'production';
 interface IEnv {
   mode?: TMode;
+  bundleAnalyzer?: boolean;
 }
 
 const devServer: DevServerConfiguration = {
@@ -27,8 +28,10 @@ const devServer: DevServerConfiguration = {
 };
 
 export default (env: IEnv, _argv: unknown): webpack.Configuration => {
-  const { mode = 'development' } = env;
+  const { mode = 'development', bundleAnalyzer = false } = env;
   const isDevMode: Boolean = mode === 'development';
+
+  console.log(env);
 
   return {
     mode,
@@ -45,7 +48,7 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
         new MiniCssExtractPlugin({
           filename: 'css/style.[contenthash].css',
         }),
-      new BundleAnalyzer.BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
+      bundleAnalyzer && new BundleAnalyzer.BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
     ],
     module: {
       rules: [
@@ -69,12 +72,28 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
             'sass-loader',
           ],
         },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+          type: 'asset/resource',
+          include: path.resolve(__dirname, 'public/assets/images'),
+          generator: {
+            filename: 'images/[name][ext]',
+          },
+        },
+        {
+          test: /\.svg$/i,
+          include: path.resolve(__dirname, 'public/assets/icons'),
+          issuer: /\.[jt]sx?$/,
+          use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+        },
       ],
     },
     devServer: isDevMode && devServer,
     resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
       alias: {
+        '@images': path.resolve(__dirname, 'public', 'assets', 'images'),
+        '@icons': path.resolve(__dirname, 'public', 'assets', 'icons'),
         '@entities': path.resolve(__dirname, 'src', 'entities'),
         '@pages': path.resolve(__dirname, 'src', 'pages'),
         '@shared': path.resolve(__dirname, 'src', 'shared'),
