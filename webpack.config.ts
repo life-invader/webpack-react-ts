@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
@@ -14,6 +15,8 @@ const devServer: DevServerConfiguration = {
   compress: true,
   hot: true,
   port: 'auto',
+  watchFiles: ['src/**/*'],
+  historyApiFallback: true,
   client: {
     overlay: {
       errors: true,
@@ -42,6 +45,7 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
         new MiniCssExtractPlugin({
           filename: 'css/style.[contenthash].css',
         }),
+      new BundleAnalyzerPlugin.BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
     ],
     module: {
       rules: [
