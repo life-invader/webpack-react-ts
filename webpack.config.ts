@@ -31,8 +31,6 @@ export default (env: IEnv, _argv: unknown): webpack.Configuration => {
   const { mode = 'development', bundleAnalyzer = false } = env;
   const isDevMode: Boolean = mode === 'development';
 
-  console.log(env);
-
   return {
     mode,
     entry: './src/app/index.tsx',
